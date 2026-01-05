@@ -1,4 +1,4 @@
-export interface TrackModel {
+export interface Track {
     id? : number , 
     title : string,
     signer : string,
