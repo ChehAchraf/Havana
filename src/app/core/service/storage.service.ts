@@ -31,4 +31,17 @@ export class StorageService {
     })
   }
 
+  async getAllTracks():Promise<Track[]>{
+    return (await this.dbPromise).getAll('tracks');
+  }
+
+  async addTrack(track : Track) : Promise<number>{
+    return (await this.dbPromise).add('tracks',track);
+  }
+
+  async deleteTrack (id : number) : Promise<void>{
+    return (await this.dbPromise).delete('tracks',id);
+  }
+
+
 }
