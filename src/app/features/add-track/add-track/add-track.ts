@@ -4,10 +4,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TrackService } from '../../../core/service/track.service';
 import { Router } from '@angular/router';
 import { Track } from '../../../core/models/track.model';
+import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-add-track',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,NgIcon],
   templateUrl: './add-track.html',
   styleUrl: './add-track.css',
 })

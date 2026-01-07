@@ -1,96 +1,54 @@
-<div class="add-track-container">
-  <h2>Ajouter une nouvelle piste</h2>
+<!-- Add Track Component -->
+<div class="bg-[#121212] min-h-full p-8 flex justify-center text-white">
+  <div class="w-full max-w-3xl">
+    <h2 class="text-2xl font-bold mb-6">Ajouter un titre</h2>
 
-  <form [formGroup]="trackForm" (ngSubmit)="onSubmit()">
-
-    <div class="form-group">
-      <label for="title">Titre de la chanson *</label>
-      <input 
-        id="title" 
-        type="text" 
-        formControlName="title" 
-        placeholder="Ex: Shape of You"
-      >
-      @if (trackForm.get('title')?.touched && trackForm.get('title')?.invalid) {
-        <small class="error">Le titre est obligatoire (max 50 caractères)</small>
-      }
-    </div>
-
-    <div class="form-group">
-      <label for="artist">Artiste *</label>
-      <input 
-        id="artist" 
-        type="text" 
-        formControlName="artist" 
-        placeholder="Ex: Ed Sheeran"
-      >
-      @if (trackForm.get('artist')?.touched && trackForm.get('artist')?.invalid) {
-        <small class="error">Le nom de l'artiste est obligatoire</small>
-      }
-    </div>
-
-    <div class="form-group">
-      <label for="genre">Genre *</label>
-      <select id="genre" formControlName="genre">
-        <option value="Pop">Pop</option>
-        <option value="Rock">Rock</option>
-        <option value="Rap">Rap</option>
-        <option value="Jazz">Jazz</option>
-        <option value="Classical">Classical</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea 
-        id="description" 
-        formControlName="description" 
-        rows="3"
-        placeholder="Une petite description..."
-      ></textarea>
-      @if (trackForm.get('description')?.hasError('maxlength')) {
-        <small class="error">Maximum 200 caractères</small>
-      }
-    </div>
-
-    <div class="form-group file-upload">
-      <label for="audioFile">Fichier Audio (MP3, WAV, OGG) *</label>
-      <input 
-        #fileInput
-        id="audioFile" 
-        type="file" 
-        accept="audio/*"
-        (change)="onFileSelected(fileInput)"
-      >
-      
-      @if (fileError()) {
-        <div class="alert-error">
-          {{ fileError() }}
+    <form class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-bold uppercase text-[#b3b3b3]">Titre</label>
+          <input type="text" placeholder="Titre de la chanson"
+            class="bg-[#2a2a2a] border-transparent focus:border-white focus:ring-0 rounded-sm p-3 text-sm placeholder-[#b3b3b3]">
         </div>
-      }
-
-      @if (fileDuration > 0) {
-        <div class="success-info">
-          ✅ Durée détectée: {{ fileDuration }} secondes
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-bold uppercase text-[#b3b3b3]">Artiste</label>
+          <input type="text" placeholder="Nom de l'artiste"
+            class="bg-[#2a2a2a] border-transparent focus:border-white focus:ring-0 rounded-sm p-3 text-sm placeholder-[#b3b3b3]">
         </div>
-      }
-    </div>
+      </div>
 
-    <div class="actions">
-      <button 
-        type="submit" 
-        class="btn-save" 
-        [disabled]="trackForm.invalid || !selectedFile || isSubmiting()"
-      >
-        @if (isSubmiting()) {
-          <span>Sauvegarde en cours...</span>
-        } @else {
-          <span>Enregistrer</span>
-        }
-      </button>
-      
-      <button type="button" class="btn-cancel" routerLink="/library">Annuler</button>
-    </div>
+      <div class="flex flex-col gap-2">
+        <label class="text-xs font-bold uppercase text-[#b3b3b3]">Description</label>
+        <textarea rows="3"
+          class="bg-[#2a2a2a] border-transparent focus:border-white focus:ring-0 rounded-sm p-3 text-sm placeholder-[#b3b3b3] resize-none"></textarea>
+      </div>
 
-  </form>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-bold uppercase text-[#b3b3b3]">Genre</label>
+          <select class="bg-[#2a2a2a] border-transparent focus:border-white focus:ring-0 rounded-sm p-3 text-sm">
+            <option>Pop</option>
+            <option>Rock</option>
+            <option>Rap</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-2 justify-end">
+          <input type="file" id="file" class="hidden">
+          <label for="file"
+            class="bg-[#2a2a2a] hover:bg-[#3E3E3E] text-white py-3 rounded-sm cursor-pointer text-center font-bold text-sm transition-colors">
+            Choisir un fichier
+          </label>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-4 pt-4">
+        <button type="button"
+          class="font-bold text-sm text-[#b3b3b3] hover:text-white uppercase tracking-widest">Annuler</button>
+        <button type="submit"
+          class="bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold py-3 px-8 rounded-full text-sm uppercase tracking-widest transform active:scale-95 transition-all">
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
