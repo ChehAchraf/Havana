@@ -8,7 +8,7 @@ import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-add-track',
-  imports: [ReactiveFormsModule, CommonModule,NgIcon],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './add-track.html',
   styleUrl: './add-track.css',
 })
@@ -82,7 +82,7 @@ export class AddTrackComponent {
     await this.trackService.addTrack(newTrack);
 
     this.isSubmiting.set(false);
-    this.router.navigate(['/library']);
+    this.router.navigate(['/home']);
   }
 
 }
