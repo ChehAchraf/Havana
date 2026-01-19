@@ -1,47 +1,63 @@
-import { Injectable } from '@angular/core';
-import { DBSchema, IDBPDatabase, openDB } from 'idb';
-import { Track } from '../models/track.model';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
+import {DBSchema, IDBPDatabase, openDB} from 'idb';
+import {Track} from '../models/track.model';
 
 interface MusicDB extends DBSchema {
-  tracks: {
-    key: number,
-    value: Track,
-    indexes: { 'by-title': string }
-  }
+    tracks: {
+        key: number;
+        value: Track;
+        indexes: { 'by-title': string };
+    };
 }
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root'
 })
 export class StorageService {
+    private dbPromise: Promise<IDBPDatabase<MusicDB>> | undefined;
 
-  private dbPromise: Promise<IDBPDatabase<MusicDB>>;
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {
 
-  constructor() {
-    this.dbPromise = openDB<MusicDB>('music-stream-db', 1, {
-      upgrade(db) {
-        if (!db.objectStoreNames.contains('tracks')) {
-          const store = db.createObjectStore('tracks', {
-            keyPath: 'id',
-            autoIncrement: true
-          });
-          store.createIndex('by-title', 'title');
+        if (isPlatformBrowser(this.platformId)) {
+            this.dbPromise = openDB<MusicDB>('music-stream-db', 1, {
+                upgrade(db) {
+                    if (!db.objectStoreNames.contains('tracks')) {
+                        const store = db.createObjectStore('tracks', {
+                            keyPath: 'id',
+                            autoIncrement: true
+                        });
+                        store.createIndex('by-title', 'title');
+                    }
+                },
+            });
         }
-      }
-    })
-  }
+    }
 
-  async getAllTracks():Promise<Track[]>{
-    return (await this.dbPromise).getAll('tracks');
-  }
+    private async getDB() {
+        if (!this.dbPromise) {
+            throw new Error('IndexedDB not available (Server Side)');
+        }
+        return this.dbPromise;
+    }
 
-  async addTrack(track : Track) : Promise<number>{
-    return (await this.dbPromise).add('tracks',track);
-  }
+    async getAllTracks(): Promise<Track[]> {
+        const db = await this.getDB();
+        return db.getAll('tracks');
+    }
 
-  async deleteTrack (id : number) : Promise<void>{
-    return (await this.dbPromise).delete('tracks',id);
-  }
+    async addTrack(track: Track): Promise<number> {
+        const db = await this.getDB();
+        return db.add('tracks', track);
+    }
 
+    async updateTrack(track: Track): Promise<void> {
+        const db = await this.getDB();
+        await db.put('tracks', track);
+    }
 
+    async deleteTrack(id: number): Promise<void> {
+        const db = await this.getDB();
+        return db.delete('tracks', id);
+    }
 }
