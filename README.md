@@ -1,59 +1,69 @@
-# Havana
+# Havana - Modern Web Music Player
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
+A sleek and modern music player application built with Angular 21, designed to provide a premium user experience with advanced features like track management and a customizable library.
 
-## Development server
+## 🚀 Features
 
-To start a local development server, run:
+-   **Music Library**: Manage your personal collection of tracks.
+-   **Track Management**: Add, edit, and view details of your music tracks.
+-   **Audio Player**: Full-featured audio player with playback controls (Play, Pause, Next, Previous).
+-   **Responsive Design**: Optimized for both desktop and mobile devices.
+-   **Modern UI**: Built with a focus on aesthetics using TailwindCSS 4.
 
-```bash
-ng serve
-```
+## 🛠️ Tech Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+-   **Frontend Framework**: [Angular 21](https://angular.dev/) (Standalone Components)
+-   **Styling**: [TailwindCSS 4](https://tailwindcss.com/)
+-   **State Management**: RxJS
+-   **Local Database**: IndexedDB (via `idb`)
+-   **Server-Side Rendering**: Angular SSR with Express
 
-## Code scaffolding
+## 🏁 Getting Started
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Follow these steps to get a local copy up and running.
 
-```bash
-ng generate component component-name
-```
+### Prerequisites
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+-   Use **Node.js** (v20 or higher recommended)
+-   **npm** (comes with Node.js)
 
-```bash
-ng generate --help
-```
+### Installation
 
-## Building
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/ChehAchraf/Havana.git
+    cd havana
+    ```
 
-To build the project run:
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
 
-```bash
-ng build
-```
+### Usage
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+**Development Server:**
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Run the development server and open `http://localhost:4200/`:
 
 ```bash
-ng e2e
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+**Build:**
 
-## Additional Resources
+Build the project for production:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm run build
+```
+
+**Test:**
+
+Run unit tests:
+
+```bash
+npm test
+```
+
+

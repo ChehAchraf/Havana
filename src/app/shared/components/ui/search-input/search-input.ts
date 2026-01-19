@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
+import {TrackService} from '../../../../core/service/track.service';
 
 @Component({
   selector: 'app-search-input',
@@ -8,5 +9,12 @@ import { NgIcon } from '@ng-icons/core';
   styleUrl: './search-input.css',
 })
 export class SearchInput {
+
+    private trackService = inject(TrackService);
+
+    onSearch(event: any) {
+        const value = event.target.value;
+        this.trackService.setSearchQuery(value);
+    }
 
 }
